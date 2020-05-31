@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  build:
+  cronjob:
     name: Build
     runs-on: ubuntu-latest
     steps:
