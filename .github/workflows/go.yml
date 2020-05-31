@@ -31,7 +31,7 @@ jobs:
     - name: Check provided websites 
       run: go run slack.go
       env:
-        web_hook_url: ${{ secrets.slack_hook }}
+        web_hook_url: ${{ secrets.SLACK_HOOK }}
         url: "https://beta.ntp-event.dk,https://registry.sec-aau.dk"
 
         
