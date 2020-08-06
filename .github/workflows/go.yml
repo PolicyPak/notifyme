@@ -2,7 +2,7 @@ name: Go
 
 on:
   schedule:
-    - cron: 0 * * * *
+    - cron: 0 * * * * 
 
 jobs:
 
@@ -28,8 +28,9 @@ jobs:
             dep ensure
         fi
 
-    - name: Check provided websites 
-      run: go run slack.go
-      env:
-        web_hook_url: ${{ secrets.SLACK_HOOK }}
-        url: "https://registry.sec-aau.dk"
+
+#     - name: Check provided websites 
+#       run: go run slack.go
+#       env:
+#         web_hook_url: ${{ secrets.SLACK_HOOK }}
+#         url: "https://registry.sec-aau.dk"
