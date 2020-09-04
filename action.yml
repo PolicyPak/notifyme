@@ -1,5 +1,6 @@
-name: 'Notifier'
+name: 'slack-notifier'
 description: 'Super Simple Slack Bot to send messages'
+author: 'mrturkmencom'
 inputs:
   web_hook:  # id of input
     description: 'Mandatory web hook url for sending messages to Slack'
@@ -9,7 +10,9 @@ inputs:
     description: 'Message to send to slack'
     required: true
     default: 'Hi, I am a bot who is running for Slack'
-
+branding:
+  icon: 'bell'
+  color: 'yellow'
 runs:
   using: 'docker'
   image: 'Dockerfile'
