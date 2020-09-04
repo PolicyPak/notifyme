@@ -14,8 +14,9 @@ import (
 
 var (
 	ErrorReceived = errors.New("not ok message received from Slack environment")
-	MESSAGE           = os.Getenv("MESSAGE")
-	WEB_HOOK_URL      = os.Getenv("web_hook_url")
+	MESSAGE       = os.Getenv("message")
+	WEB_HOOK_URL  = os.Getenv("web_hook")
+	COMMIT_ID     = os.Getenv("commit_id")
 )
 
 type SlackRequestBody struct {
@@ -23,16 +24,20 @@ type SlackRequestBody struct {
 }
 
 func main() {
-	if err := SendSlackNotification(WEB_HOOK_URL,MESSAGE); err !=nil {
+	if err := SendSlackNotification(WEB_HOOK_URL, MESSAGE); err != nil {
 		panic(fmt.Errorf("Error on sending notification %v", err))
 	}
-	log.Printf("Message: \" %s \" has been send\n",MESSAGE)
+	log.Printf("Message: \" %s \" has been send\n", MESSAGE)
 }
-
 
 func SendSlackNotification(webHookUrl string, msg string) error {
 	format := "2006-01-02 15:04:05"
-	slackBody, _ := json.Marshal(SlackRequestBody{Text: time.Now().Format(format)+": "+msg})
+	date := time.Now().Format(format)
+
+	message := fmt.Sprintf("Commit Id: %s \nDate: %s\nMessage:%s", COMMIT_ID, date, msg)
+
+	slackBody, _ := json.Marshal(SlackRequestBody{Text: message})
+
 	req, err := http.NewRequest(http.MethodPost, webHookUrl, bytes.NewBuffer(slackBody))
 	if err != nil {
 		return err
@@ -43,7 +48,7 @@ func SendSlackNotification(webHookUrl string, msg string) error {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 
-	client := &http.Client{Timeout: 10 * time.Second,Transport: tr}
+	client := &http.Client{Timeout: 10 * time.Second, Transport: tr}
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
