@@ -1,0 +1,18 @@
+name: 'Notifier'
+description: 'Super Simple Slack Bot to send messages'
+inputs:
+  web_hook:  # id of input
+    description: 'Mandatory web hook url for sending messages to Slack'
+    required: true
+    default: ''
+  message:
+    description: 'Message to send to slack'
+    required: true
+    default: 'Hi, I am a bot who is running for Slack'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    - ${{ inputs.web_hook }}
+    - ${{ inputs.message }}
