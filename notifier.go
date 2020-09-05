@@ -17,6 +17,7 @@ var (
 	MESSAGE       = os.Getenv("message")
 	WEB_HOOK_URL  = os.Getenv("web_hook")
 	COMMIT_ID     = os.Getenv("commit_id")
+	COMMIT_MESSAGE = os.Getenv("commit_message")
 )
 
 type SlackRequestBody struct {
@@ -34,7 +35,7 @@ func SendSlackNotification(webHookUrl string, msg string) error {
 	format := "2006-01-02 15:04:05"
 	date := time.Now().Format(format)
 
-	message := fmt.Sprintf("Commit Id: %s \nDate: %s\nMessage:%s", COMMIT_ID, date, msg)
+	message := fmt.Sprintf("Commit Id: %s \nCommit Message: %s\nDate: %s\nMessage:%s", COMMIT_ID,COMMIT_MESSAGE, date, msg)
 
 	slackBody, _ := json.Marshal(SlackRequestBody{Text: message})
 
