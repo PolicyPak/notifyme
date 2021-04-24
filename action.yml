@@ -1,6 +1,6 @@
 name: 'send-slack-message'
 description: 'Super Simple Slack Bot to send messages'
-author: 'mrturkmencom'
+author: 'merkez'
 branding:
   icon: 'bell'
   color: 'yellow'
