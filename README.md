@@ -8,7 +8,7 @@ Usage:
 
 ```yaml
 - name: send-slack-message
-  uses: mrturkmencom/notifyme@v1
+  uses: merkez/notifyme@v1
   env:
     web_hook: ${{ secrets.HOOK }}
     message: "Hi, this is first message from my `send-slack-message` action ⚔️ "
